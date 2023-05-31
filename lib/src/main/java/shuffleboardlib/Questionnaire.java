@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Questionnaire extends SubsystemBase {
+    /**does not include "Shuffleboard/" */
     private final String shuffleboardPath;
     private final Question rootQuestion;
     private final NetworkTable networkTable;
@@ -18,13 +19,14 @@ public class Questionnaire extends SubsystemBase {
     private final ArrayList<SendableChooser<Question>> answerSendableChoosers = new ArrayList<SendableChooser<Question>>();
     // just the question publisher, i don't know why I have this
     private final ArrayList<StringPublisher> questionPublishers = new ArrayList<StringPublisher>();
+    // private final ArrayList<String> questionStringThings = new ArrayList<String>();
     private final int numQuestions;
 
     // a desision tree
     /**
      * create a shuffleboard questionnaire
      * 
-     * @param shuffleboardPath the path to the network table, should start with
+     * @param shuffleboardPath the path to the network table, should NOT start with
      *                         "Shuffleboard/"
      * @param rootQuestion     the root question, should be the first question asked
      * @param numQuestions     the number of questions in the deepest path of the
@@ -35,19 +37,26 @@ public class Questionnaire extends SubsystemBase {
         this.rootQuestion = rootQuestion;
         this.numQuestions = numQuestions;
         NetworkTableInstance inst = NetworkTableInstance.getDefault();
-        networkTable = inst.getTable(shuffleboardPath);
+        networkTable = inst.getTable("Shuffleboard/" + shuffleboardPath);
         ShuffleboardTab tab = Shuffleboard.getTab(shuffleboardPath);
 
         // create the sendable choosers
         for (int i = 0; i < numQuestions; i++) {
             answerSendableChoosers.add(new SendableChooser<Question>());
-            tab.add("Question " + i, answerSendableChoosers.get(i)).withPosition(0, i);
+            tab.add("Answer " + i, answerSendableChoosers.get(i)).withPosition(7, i);
         }
 
         // create the question publishers
         for (int i = 0; i < numQuestions; i++) {
             questionPublishers.add(networkTable.getStringTopic("Question " + i).publish());
+            //this will be the actual question, it will be setup during configureQuestion
+            // questionStringThings.add("");
+            // tab.addString(shuffleboardPath, null)
+            // tab.addString("Question " + i, () -> questionStringThings.get(test)).withPosition(6, i);
+            tab.add("Question " + i, "you should not see this").withPosition(6, i);
+
         }
+
 
         // add the root question to the sendable choosers
         answerSendableChoosers.get(0).setDefaultOption(rootQuestion.getQuestion(), rootQuestion);
@@ -56,7 +65,7 @@ public class Questionnaire extends SubsystemBase {
         configureQuestion(0, rootQuestion);
         // configure all the questions in a loop
         for (int i = 0; i < numQuestions; i++) {
-            configureQuestion(i, answerSendableChoosers.get(i).getSelected());
+            configureQuestion(i + 1, answerSendableChoosers.get(i).getSelected());
         }
 
     }
@@ -86,8 +95,8 @@ public class Questionnaire extends SubsystemBase {
         // configure the first question
         configureQuestion(0, rootQuestion);
         // configure all the questions in a loop
-        for (int i = 0; i < numQuestions; i++) {
-            configureQuestion(i, answerSendableChoosers.get(i).getSelected());
+        for (int i = 1; i < numQuestions; i++) {
+            configureQuestion(i, answerSendableChoosers.get(i-1).getSelected());
         }
     }
 

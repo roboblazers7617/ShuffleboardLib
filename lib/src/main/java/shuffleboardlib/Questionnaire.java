@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Questionnaire extends SubsystemBase {
     /**does not include "Shuffleboard/" */
-    private final String shuffleboardPath;
     private final Question rootQuestion;
     private final NetworkTable networkTable;
     // questions are switchable choosers which include the questions and the answers
@@ -33,7 +32,6 @@ public class Questionnaire extends SubsystemBase {
      *                         tree
      */
     public Questionnaire(String shuffleboardPath, Question rootQuestion, int numQuestions) {
-        this.shuffleboardPath = shuffleboardPath;
         this.rootQuestion = rootQuestion;
         this.numQuestions = numQuestions;
         NetworkTableInstance inst = NetworkTableInstance.getDefault();
@@ -59,13 +57,13 @@ public class Questionnaire extends SubsystemBase {
 
 
         // add the root question to the sendable choosers
-        answerSendableChoosers.get(0).setDefaultOption(rootQuestion.getQuestion(), rootQuestion);
+        // answerSendableChoosers.get(0).setDefaultOption(rootQuestion.getQuestion(), rootQuestion);
 
         // configure the first question
         configureQuestion(0, rootQuestion);
         // configure all the questions in a loop
         for (int i = 0; i < numQuestions; i++) {
-            configureQuestion(i + 1, answerSendableChoosers.get(i).getSelected());
+            configureQuestion(i, answerSendableChoosers.get(i).getSelected());
         }
 
     }

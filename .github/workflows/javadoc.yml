@@ -20,11 +20,11 @@ jobs:
                 #this is the token that was created earlier
                 GITHUB_TOKEN: ${{ secrets.TOKEN }}
               run: |
-                echo $GITHUB_TOKEN
+                echo ${GITHUB_TOKEN}
                 # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
                 git config --global user.name "fodfodfod"
                 git config --global user.email "94200657+fodfodfod@users.noreply.github.com"
                 git add -f lib/build/docs/javadoc
                 git commit -m "Javadoc for ${{ github.sha }}"
-                git push https://${GITHUB_TOKEN}@github.com/fodfodfod/ShuffleboardLib.git HEAD:main
+                git push
             #commit the javadoc folder, the folder has been added to the .gitignore file

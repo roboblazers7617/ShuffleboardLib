@@ -18,8 +18,8 @@ jobs:
             - name: setup git config
               run: |
                 # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
-                git config --global user.name "GitHub Actions Bot"
-                git config --global user.email "<>"
+                git config --global user.name "GitHub Actions"
+                git config --global user.email "actions@github.com"
             - name: Commit Javadoc
               run: |
                 git add -f lib/build/docs/javadoc

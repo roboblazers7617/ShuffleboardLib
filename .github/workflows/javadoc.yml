@@ -18,12 +18,11 @@ jobs:
             - name: setup git config
               run: |
                 # setup the username and email. I tend to use 'GitHub Actions Bot' with no email by default
-                git config user.name "GitHub Actions Bot"
-                git config user.email "<>"
+                git config --global user.name "GitHub Actions Bot"
+                git config --global user.email "<>"
             - name: Commit Javadoc
               run: |
-              
                 git add -f lib/build/docs/javadoc
                 git commit -m "Javadoc for ${{ github.sha }}"
-                git push origin HEAD:main
+                git push
             #commit the javadoc folder, the folder has been added to the .gitignore file

@@ -5,10 +5,16 @@ package shuffleboardlib;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+import shuffleboardlib.Questionnaire;
 
 public class LibraryTest {
     @Test public void someLibraryMethodReturnsTrue() {
         Library classUnderTest = new Library();
         assertTrue("someLibraryMethod should return 'true'", classUnderTest.someLibraryMethod());
+    }
+
+    @Test public void createQuestionaire(){
+        // Questionnaire q = new Questionnaire(null, null, 0);
+        // assertEquals("Questionaire should have 0 questions", 0, q.getQuestions().size());
     }
 }

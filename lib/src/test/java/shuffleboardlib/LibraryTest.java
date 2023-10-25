@@ -5,7 +5,6 @@ package shuffleboardlib;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
-import shuffleboardlib.Questionnaire;
 
 public class LibraryTest {
     @Test public void someLibraryMethodReturnsTrue() {

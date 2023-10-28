@@ -11,7 +11,7 @@ public class Question {
     // private final SendableChooser<Question> answers;
     // private static ArrayList<Question> questions = new ArrayList<Question>();
 
-    /**
+    /** 
      * Create a question
      * @param question a string for the question
      * @param answersHashMap a hashmap of all of the answers

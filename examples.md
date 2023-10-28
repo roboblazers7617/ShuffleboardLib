@@ -3,6 +3,7 @@ Import the Library
 ``` java
 import shuffleboardlib.Question;
 import shuffleboardlib.Questionnaire;
+import java.util.HashMap;
 
 public class DriverStation extends ShuffleboardTabBase{
     private Questionnaire questionnaire;
